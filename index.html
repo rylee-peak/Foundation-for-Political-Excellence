@@ -1,1 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation for Political Excellence | Official Website</title>
+    <meta name="description" content="Raising the Standard of Civic Leadership through education, public service, and civic technology.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fpe: {
+                            navy: '#0f172a',
+                            blue: '#1e3a8a',
+                            gold: '#eab308',
+                            light: '#f8fafc',
+                            gray: '#64748b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & SPA Utilities */
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* SPA View Management */
+        .spa-view { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .spa-view.active { display: block; opacity: 1; }
+
+        /* Custom Scrollbar for dashboards */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-fpe-light text-slate-800 antialiased overflow-x-hidden flex flex-col min-h-screen">
+
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center cursor-pointer" onclick="navigate('public')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-fpe-gold text-fpe-navy rounded flex items-center justify-center font-bold text-xl font-serif">
+                            FPE
+                        </div>
+                        <span class="text-white font-semibold text-lg hidden sm:block tracking-tight leading-tight">Foundation for <br>Political Excellence</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu (Dynamic based on Auth State) -->
+                <div class="hidden md:flex items-center space-x-6" id="nav-desktop-links">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-fpe-navy border-t border-slate-700 pb-4">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3" id="nav-mobile-links">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-container" class="flex-grow pt-20">
+        
+        <!-- ========================================== -->
+        <!-- VIEW 1: PUBLIC LANDING PAGE -->
+        <!-- ========================================== -->
+        <main id="view-public" class="spa-view active">
+            
+            <header class="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-fpe-navy text-white">
+                <div class="absolute inset-0 z-0 opacity-20">
+                    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full border border-fpe-gold opacity-50"></div>
+                    <div class="absolute top-1/2 left-1/4 w-64 h-64 rounded-full border border-slate-500 opacity-30"></div>
+                    <div class="absolute bottom-0 right-1/3 w-[800px] h-[800px] bg-gradient-to-tr from-fpe-blue to-transparent rounded-full blur-3xl opacity-40 translate-y-1/2"></div>
+                </div>
+
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-fpe-gold font-medium mb-6 fade-in-up">
+                            <span class="w-2 h-2 rounded-full bg-fpe-gold"></span>
+                            Nonpartisan Civic Education
+                        </div>
+                        <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6 fade-in-up" style="transition-delay: 100ms;">
+                            Raising the Standard of <span class="text-transparent bg-clip-text bg-gradient-to-r from-fpe-gold to-yellow-200">Civic Leadership.</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed fade-in-up" style="transition-delay: 200ms;">
+                            The Foundation for Political Excellence develops informed, engaged, and ethical civic leaders through education, leadership development, public service, and civic technology.
+                        </p>
+                        <div class="flex flex-wrap gap-4 fade-in-up" style="transition-delay: 300ms;">
+                            <button onclick="document.getElementById('programs').scrollIntoView()" class="bg-fpe-gold hover:bg-yellow-400 text-fpe-navy px-8 py-4 rounded font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                Explore Our Programs
+                            </button>
+                            <button onclick="openModal('portal-modal')" class="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur text-white px-8 py-4 rounded font-semibold transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-lock text-sm"></i> Member Portal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="py-24 bg-white relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="fade-in-up">
+                            <h2 class="text-4xl font-bold text-fpe-navy mb-6">Excellence in Public Service Starts With Education.</h2>
+                            <div class="w-20 h-1 bg-fpe-gold mb-8"></div>
+                            <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                                FPE believes that strong communities depend on people who understand their government, participate in civic life, and are prepared to lead with integrity.
+                            </p>
+                            <button class="text-fpe-blue font-bold hover:text-fpe-navy transition-colors flex items-center gap-2">
+                                Learn About FPE <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="bg-slate-50 rounded-2xl p-10 border border-slate-200 shadow-sm fade-in-up" style="transition-delay: 200ms;">
+                            <h3 class="text-2xl font-bold text-fpe-navy mb-6 font-serif">Politics Is More Than Elections.</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-fpe-blue flex items-center justify-center shrink-0"><i class="fa-solid fa-check text-xs"></i></div>
+                                    <span class="text-slate-700">Understanding complex government systems and policies</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-fpe-blue flex items-center justify-center shrink-0"><i class="fa-solid fa-check text-xs"></i></div>
+                                    <span class="text-slate-700">Serving communities through effective local action</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-fpe-blue flex items-center justify-center shrink-0"><i class="fa-solid fa-check text-xs"></i></div>
+                                    <span class="text-slate-700">Holding public institutions accountable with integrity</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="programs" class="py-24 bg-slate-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+                        <h2 class="text-4xl font-bold text-fpe-navy mb-4">Our Programs & Initiatives</h2>
+                        <p class="text-lg text-slate-600">Comprehensive initiatives designed to educate, research, and innovate for a stronger civic society.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- FPE Academy -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col fade-in-up">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <div class="w-12 h-12 bg-fpe-navy rounded flex items-center justify-center text-white mb-6 text-xl">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-fpe-navy mb-2 font-serif">FPE Academy</h3>
+                                <p class="text-sm font-semibold text-fpe-blue mb-4">Developing the next generation of civic leaders.</p>
+                                <p class="text-slate-600 mb-6 flex-grow">Programs for high school and college students focused on civics, leadership, debate, government, and public service.</p>
+                                <button onclick="navigate('portal')" class="text-fpe-navy border-2 border-fpe-navy hover:bg-fpe-navy hover:text-white px-6 py-2 rounded font-semibold transition-colors">
+                                    Access Student Portal
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Civic Tech Lab -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col fade-in-up" style="transition-delay: 150ms;">
+                            <div class="p-8 flex flex-col flex-grow relative z-10">
+                                <div class="w-12 h-12 bg-fpe-gold rounded flex items-center justify-center text-fpe-navy mb-6 text-xl">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-fpe-navy mb-2 font-serif">Civic Technology Lab</h3>
+                                <p class="text-sm font-semibold text-fpe-blue mb-4">Building technology for a more accessible democracy.</p>
+                                <p class="text-slate-600 mb-6 flex-grow">The lab develops digital tools, open-source technology, and resources designed to make civic participation easier.</p>
+                                <button onclick="navigate('civic-tech')" class="bg-fpe-gold text-fpe-navy hover:bg-yellow-400 px-6 py-2 rounded font-bold transition-colors">
+                                    Explore Lab Projects
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- FPE Volunteers -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col fade-in-up" style="transition-delay: 300ms;">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <div class="w-12 h-12 bg-fpe-blue rounded flex items-center justify-center text-white mb-6 text-xl">
+                                    <i class="fa-solid fa-hands-holding-circle"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-fpe-navy mb-2 font-serif">Volunteer Corps</h3>
+                                <p class="text-sm font-semibold text-fpe-blue mb-4">Your Community Needs You.</p>
+                                <p class="text-slate-600 mb-6 flex-grow">Join our nationwide network of volunteers helping to organize forums, mentor students, and run our civic technology.</p>
+                                <button onclick="navigate('volunteer')" class="text-fpe-blue border-2 border-fpe-blue hover:bg-fpe-blue hover:text-white px-6 py-2 rounded font-semibold transition-colors">
+                                    Volunteer Portal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: STUDENT PORTAL / LMS -->
+        <!-- ========================================== -->
+        <main id="view-portal" class="spa-view bg-slate-50 min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Portal Header -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <h2 class="text-3xl font-bold text-fpe-navy font-serif">FPE Student Portal</h2>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-bold">Authenticated</span>
+                        </div>
+                        <p class="text-slate-600" id="welcome-message">Welcome back, Student.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded font-medium hover:bg-slate-50 transition">My Profile</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Left Column: Enrolled Courses -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-fpe-blue"></i> My Learning Paths
+                        </h3>
+                        
+                        <!-- Course Card 1 -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="text-xs font-bold text-fpe-gold uppercase tracking-wider">Civics 101</span>
+                                    <h4 class="text-xl font-bold text-fpe-navy mt-1">Understanding Local Government</h4>
+                                </div>
+                                <span class="bg-blue-50 text-fpe-blue text-xs font-bold px-3 py-1 rounded">In Progress</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-6">Master the structures of city councils, mayors, and municipal budgets.</p>
+                            
+                            <div class="mb-2 flex justify-between text-xs font-medium text-slate-500">
+                                <span>Progress</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mb-6">
+                                <div class="bg-fpe-blue h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center border-t border-slate-100 pt-4">
+                                <span class="text-xs text-slate-500">Next: Module 4 - The City Charter</span>
+                                <button class="bg-fpe-navy hover:bg-slate-800 text-white px-5 py-2 rounded text-sm font-semibold transition-colors">Continue</button>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 2 -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 opacity-75">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="text-xs font-bold text-fpe-gold uppercase tracking-wider">Leadership</span>
+                                    <h4 class="text-xl font-bold text-fpe-navy mt-1">Ethical Public Service</h4>
+                                </div>
+                                <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded">Not Started</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mb-6">Foundations of accountability and transparency in public roles.</p>
+                            <button class="bg-white border border-slate-300 text-slate-700 px-5 py-2 rounded text-sm font-semibold hover:bg-slate-50 transition-colors">Start Course</button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Announcements & Certificates -->
+                    <div class="space-y-6">
+                        <div class="bg-fpe-navy text-white rounded-xl shadow-sm p-6">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullhorn text-fpe-gold"></i> Announcements
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="border-l-2 border-fpe-gold pl-3">
+                                    <p class="text-xs text-slate-400 mb-1">Today</p>
+                                    <p class="text-sm font-medium">Summer Fellowship applications are now open!</p>
+                                </div>
+                                <div class="border-l-2 border-slate-600 pl-3">
+                                    <p class="text-xs text-slate-400 mb-1">Last Week</p>
+                                    <p class="text-sm font-medium text-slate-300">New module added to GovTech series.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-award text-fpe-gold"></i> Certificates
+                            </h3>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded border border-slate-100">
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-fpe-gold">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-fpe-navy">Debate Fundamentals</p>
+                                    <p class="text-xs text-slate-500">Issued: Aug 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================== -->
+        <!-- VIEW 3: VOLUNTEER PORTAL -->
+        <!-- ========================================== -->
+        <main id="view-volunteer" class="spa-view bg-slate-50 min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                
+                <div class="bg-gradient-to-r from-fpe-blue to-fpe-navy rounded-xl shadow-lg p-8 mb-8 text-white">
+                    <h2 class="text-3xl font-bold font-serif mb-2">Volunteer Hub</h2>
+                    <p class="text-blue-100 mb-6">Manage your shifts, log hours, and access training materials.</p>
+                    <div class="flex gap-4">
+                        <div class="bg-white/10 backdrop-blur px-4 py-3 rounded-lg border border-white/20">
+                            <div class="text-sm text-blue-200">Total Hours</div>
+                            <div class="text-2xl font-bold text-fpe-gold">42.5</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur px-4 py-3 rounded-lg border border-white/20">
+                            <div class="text-sm text-blue-200">Upcoming Shifts</div>
+                            <div class="text-2xl font-bold text-fpe-gold">2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Shift Signup -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Available Opportunities</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 border border-slate-200 rounded-lg hover:border-fpe-blue transition cursor-pointer flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-bold text-fpe-navy">Community Forum Usher</h4>
+                                    <p class="text-sm text-slate-500"><i class="fa-regular fa-calendar mr-1"></i> Oct 15, 2026 &bull; City Hall</p>
+                                </div>
+                                <button class="text-sm bg-fpe-blue text-white px-3 py-1.5 rounded font-medium">Sign Up</button>
+                            </div>
+                            <div class="p-4 border border-slate-200 rounded-lg hover:border-fpe-blue transition cursor-pointer flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-bold text-fpe-navy">Data Entry (Civic Tech)</h4>
+                                    <p class="text-sm text-slate-500"><i class="fa-solid fa-laptop mr-1"></i> Flexible &bull; Remote</p>
+                                </div>
+                                <button class="text-sm bg-fpe-blue text-white px-3 py-1.5 rounded font-medium">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log Hours -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Log Past Hours</h3>
+                        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Hours submitted for approval.');">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Activity</label>
+                                <select class="w-full border border-slate-300 rounded p-2 text-sm">
+                                    <option>Event Setup/Teardown</option>
+                                    <option>Administrative Support</option>
+                                    <option>Civic Tech Mentorship</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Date</label>
+                                    <input type="date" class="w-full border border-slate-300 rounded p-2 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Hours</label>
+                                    <input type="number" min="0.5" step="0.5" class="w-full border border-slate-300 rounded p-2 text-sm" placeholder="2.5">
+                                </div>
+                            </div>
+                            <button class="w-full bg-fpe-navy text-white font-bold py-2.5 rounded transition">Submit Hours</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: CIVIC TECHNOLOGY LAB -->
+        <!-- ========================================== -->
+        <main id="view-civic-tech" class="spa-view bg-white min-h-screen">
+            <!-- Lab Hero -->
+            <div class="bg-slate-900 text-white py-16 border-t-4 border-fpe-gold">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-code-branch text-fpe-gold text-3xl"></i>
+                            <h2 class="text-4xl font-bold font-mono">Civic Tech Lab</h2>
+                        </div>
+                        <p class="text-slate-400 max-w-xl text-lg">Open-source digital tools and data projects built by FPE to make civic participation accessible and transparent.</p>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800">Active Repositories</h3>
+                    <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded text-sm font-bold transition flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Request a Project
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project 1 -->
+                    <div class="border border-slate-200 rounded-lg p-6 hover:shadow-lg transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-fpe-blue font-mono text-lg">open-ballot-parser</h4>
+                            <span class="bg-green-100 text-green-800 text-[10px] uppercase font-bold px-2 py-1 rounded">Active</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 h-16">An open-source API that parses municipal ballot measures into plain-language JSON endpoints.</p>
+                        <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+                            <span class="flex items-center gap-1"><i class="fa-brands fa-node-js text-green-600"></i> Node.js</span>
+                            <a href="#" class="hover:text-fpe-navy flex items-center gap-1"><i class="fa-brands fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="border border-slate-200 rounded-lg p-6 hover:shadow-lg transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-fpe-blue font-mono text-lg">local-gov-dashboard</h4>
+                            <span class="bg-blue-100 text-blue-800 text-[10px] uppercase font-bold px-2 py-1 rounded">Beta</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 h-16">React frontend template for city councils to display voting records and budget allocations.</p>
+                        <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+                            <span class="flex items-center gap-1"><i class="fa-brands fa-react text-blue-500"></i> React / TS</span>
+                            <a href="#" class="hover:text-fpe-navy flex items-center gap-1"><i class="fa-brands fa-github"></i> View Repo</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="border border-slate-200 rounded-lg p-6 hover:shadow-lg transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-fpe-blue font-mono text-lg">fpe-authentik-proxy</h4>
+                            <span class="bg-slate-100 text-slate-600 text-[10px] uppercase font-bold px-2 py-1 rounded">Internal</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 h-16">Service Worker logic to securely mediate auth traffic to local OptiPlex SSO servers.</p>
+                        <div class="flex justify-between items-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+                            <span class="flex items-center gap-1"><i class="fa-brands fa-js text-yellow-500"></i> JavaScript</span>
+                            <span class="text-slate-400 italic">Private</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================== -->
+        <!-- VIEW 5: ADMIN DASHBOARD -->
+        <!-- ========================================== -->
+        <main id="view-admin" class="spa-view bg-slate-100 min-h-screen">
+            <div class="flex h-[calc(100vh-80px)]">
+                <!-- Sidebar -->
+                <div class="w-64 bg-white border-r border-slate-200 hidden md:block">
+                    <div class="p-6 border-b border-slate-200">
+                        <h3 class="font-bold text-fpe-navy uppercase tracking-wider text-sm">FPE System Admin</h3>
+                    </div>
+                    <nav class="p-4 space-y-1">
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 bg-blue-50 text-fpe-blue rounded-lg font-medium"><i class="fa-solid fa-chart-pie w-5"></i> Overview</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 rounded-lg font-medium"><i class="fa-solid fa-users w-5"></i> Users & Roles</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 rounded-lg font-medium"><i class="fa-solid fa-graduation-cap w-5"></i> Programs (LMS)</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 rounded-lg font-medium"><i class="fa-solid fa-calendar w-5"></i> Events</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 rounded-lg font-medium"><i class="fa-solid fa-server w-5"></i> Integrations</a>
+                    </nav>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="flex-1 p-8 overflow-y-auto custom-scrollbar">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-2xl font-bold text-slate-800">System Overview</h2>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-sm text-slate-500 mb-1">Total Users</div>
+                            <div class="text-3xl font-bold text-fpe-navy">1,248</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-sm text-slate-500 mb-1">Active Students</div>
+                            <div class="text-3xl font-bold text-fpe-navy">450</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-sm text-slate-500 mb-1">OptiPlex Status</div>
+                            <div class="text-xl font-bold text-green-600 flex items-center gap-2 mt-2">
+                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div> Connected
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                        <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                            <h3 class="font-bold text-slate-800">Recent Registrations</h3>
+                            <input type="text" placeholder="Search..." class="border border-slate-300 rounded px-3 py-1 text-sm">
+                        </div>
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-50 text-slate-500">
+                                <tr>
+                                    <th class="px-6 py-3 font-medium">Name</th>
+                                    <th class="px-6 py-3 font-medium">Email</th>
+                                    <th class="px-6 py-3 font-medium">Role</th>
+                                    <th class="px-6 py-3 font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4 font-medium text-fpe-navy">Sarah Jenkins</td>
+                                    <td class="px-6 py-4">sarah.j@example.com</td>
+                                    <td class="px-6 py-4"><span class="bg-blue-100 text-fpe-blue px-2 py-1 rounded text-xs">Student</span></td>
+                                    <td class="px-6 py-4">Active</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-6 py-4 font-medium text-fpe-navy">Marcus Chen</td>
+                                    <td class="px-6 py-4">m.chen@university.edu</td>
+                                    <td class="px-6 py-4"><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Volunteer</span></td>
+                                    <td class="px-6 py-4">Pending Docs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <footer class="bg-[#080c17] text-slate-400 pt-16 pb-8 border-t border-slate-800 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 bg-slate-800 text-fpe-gold rounded flex items-center justify-center font-bold font-serif">
+                            FPE
+                        </div>
+                        <span class="text-white font-semibold tracking-tight">Foundation for <br>Political Excellence</span>
+                    </div>
+                    <p class="text-sm mb-6">Raising the Standard of Civic Leadership.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Platform</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" onclick="navigate('public'); return false;" class="hover:text-white transition-colors">Main Website</a></li>
+                        <li><a href="#" onclick="navigate('portal'); return false;" class="hover:text-white transition-colors">Student Portal</a></li>
+                        <li><a href="#" onclick="navigate('volunteer'); return false;" class="hover:text-white transition-colors">Volunteer Hub</a></li>
+                        <li><a href="#" onclick="navigate('civic-tech'); return false;" class="hover:text-white transition-colors">Civic Tech Lab</a></li>
+                        <li><a href="#" onclick="navigate('admin'); return false;" class="hover:text-white transition-colors">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Organization</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Transparency</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Nonpartisanship Statement -->
+            <div class="border-t border-slate-800 pt-8 mb-8 text-xs text-slate-500 leading-relaxed max-w-4xl">
+                <strong class="text-slate-400">Nonpartisanship Statement:</strong> The Foundation for Political Excellence is a nonpartisan civic education organization. FPE does not endorse or oppose candidates for public office or political parties. Our programs and educational resources are designed to promote civic knowledge, leadership, public service, and informed participation. 
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 Foundation for Political Excellence. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Authentik Login Portal Modal -->
+    <div id="portal-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal('portal-modal')"></div>
+        <div class="w-full max-w-md relative z-10 transform scale-95 opacity-0 transition-all duration-300" id="portal-modal-content">
+            
+            <div class="bg-white rounded overflow-hidden shadow-2xl border-t-4 border-fpe-blue">
+                <div class="bg-slate-50 p-8 border-b border-slate-200 flex flex-col items-center">
+                    <div class="w-12 h-12 bg-fpe-navy text-fpe-gold rounded flex items-center justify-center font-bold font-serif mb-4 shadow-inner">
+                        FPE
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">FPE Central Authentication</h3>
+                    <p class="text-xs text-slate-500 mt-2">Secured via local OptiPlex Server</p>
+                </div>
+                <div class="p-8">
+                    <!-- Form simulates connection or can be pointed directly at OptiPlex IP -->
+                    <form onsubmit="handleLoginSubmit(event)">
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Username or Email</label>
+                            <input type="text" id="auth-user" required class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-fpe-blue focus:ring-1 focus:ring-fpe-blue" placeholder="admin / student / volunteer">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                            <input type="password" id="auth-pass" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-fpe-blue focus:ring-1 focus:ring-fpe-blue" placeholder="Any password works for demo">
+                        </div>
+                        <button type="submit" class="w-full bg-fpe-blue hover:bg-blue-800 text-white font-bold py-2.5 rounded transition-colors text-sm shadow">
+                            Log In (Simulate SSO)
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 border-t border-slate-200 pt-6">
+                        <p class="text-xs text-center text-slate-500 mb-3">Or use direct Authentik Flow</p>
+                        <a href="javascript:void(0)" onclick="openAuthentikFlow()" class="w-full border border-slate-300 text-slate-600 bg-slate-50 hover:bg-slate-100 font-medium py-2 rounded transition-colors text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Authentik IDP
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-slate-100 py-3 px-8 flex justify-center items-center text-xs text-slate-500">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-server text-green-500"></i> Service Worker Interceptor Active</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- SPA STATE MANAGEMENT ---
+        let appState = {
+            currentUser: null, // { name: '...', role: 'admin|student|volunteer' }
+            currentView: 'public',
+            swRegistration: null
+        };
+
+        // --- SERVICE WORKER LOGIC ---
+        async function registerSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const reg = await navigator.serviceWorker.register('/sw.js');
+                    appState.swRegistration = reg;
+                    console.log('[FPE] Service Worker registered.');
+                } catch (error) {
+                    console.warn('[FPE] Could not register /sw.js.', error);
+                }
+            }
+        }
+
+        // --- UI ROUTING & RENDERING ---
+        function navigate(viewId) {
+            // Hide all
+            document.querySelectorAll('.spa-view').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show target
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) {
+                target.classList.add('active');
+                appState.currentView = viewId;
+                window.scrollTo(0,0);
+            }
+            
+            renderNav();
+        }
+
+        function renderNav() {
+            const desktopNav = document.getElementById('nav-desktop-links');
+            const mobileNav = document.getElementById('nav-mobile-links');
+            
+            let linksHTML = '';
+            
+            if (!appState.currentUser) {
+                // Public links
+                linksHTML = `
+                    <a href="#" onclick="navigate('public')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Home</a>
+                    <a href="#" onclick="document.getElementById('programs').scrollIntoView()" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Programs</a>
+                    <a href="#" onclick="navigate('civic-tech')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium flex items-center gap-2"><i class="fa-solid fa-code"></i> Tech Lab</a>
+                    <button onclick="openModal('portal-modal')" class="bg-fpe-gold hover:bg-yellow-400 text-fpe-navy px-5 py-2 rounded text-sm font-bold transition-colors shadow flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-xs"></i> Login
+                    </button>
+                `;
+            } else {
+                // Authenticated Links based on role
+                linksHTML = `
+                    <a href="#" onclick="navigate('public')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Home</a>
+                `;
+
+                if (appState.currentUser.role === 'admin') {
+                    linksHTML += `<a href="#" onclick="navigate('admin')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Admin Dashboard</a>`;
+                }
+                if (['admin', 'student'].includes(appState.currentUser.role)) {
+                    linksHTML += `<a href="#" onclick="navigate('portal')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">LMS</a>`;
+                }
+                if (['admin', 'volunteer'].includes(appState.currentUser.role)) {
+                    linksHTML += `<a href="#" onclick="navigate('volunteer')" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Volunteer</a>`;
+                }
+                
+                linksHTML += `
+                    <button onclick="handleLogout()" class="bg-slate-700 hover:bg-slate-600 border border-slate-500 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow">
+                        Logout (${appState.currentUser.name})
+                    </button>
+                `;
+            }
+
+            desktopNav.innerHTML = linksHTML;
+            // Simplified mobile rendering for demo purposes
+            mobileNav.innerHTML = linksHTML.replace(/text-slate-300/g, 'block px-3 py-2 text-base text-slate-300');
+        }
+
+        // --- AUTHENTICATION ACTIONS ---
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const user = document.getElementById('auth-user').value.toLowerCase();
+            
+            // In a real app, we would do: fetch('/api/auth/login') which SW intercepts
+            // For this HTML-only demo, we simulate the role logic based on input string
+            let role = 'student';
+            let name = 'Student User';
+            
+            if (user.includes('admin')) { role = 'admin'; name = 'System Admin'; }
+            if (user.includes('vol')) { role = 'volunteer'; name = 'Community Volunteer'; }
+
+            appState.currentUser = { name, role };
+            
+            closeModal('portal-modal');
+            
+            // Route based on role
+            if (role === 'admin') navigate('admin');
+            else if (role === 'volunteer') navigate('volunteer');
+            else navigate('portal'); // student
+        }
+
+        function handleLogout() {
+            appState.currentUser = null;
+            navigate('public');
+        }
+
+        function openAuthentikFlow() {
+            // Directs the browser to the actual Authentik Flow URL using your domain
+            const authentikUrl = 'https://auth.yourdomain.com'; // Change to your OptiPlex auth domain
+            const clientId = 'fpe-frontend-app';
+            window.open(`${authentikUrl}/application/o/${clientId}/`, '_blank');
+        }
+
+        // --- MODAL UTILS ---
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(`${modalId}-content`);
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(`${modalId}-content`);
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); 
+        }
+        
+        // Override native alert for nicer UI if needed, but keeping simple for this demo to avoid extra dom elements.
+        
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            registerSW();
+            renderNav();
+            
+            // Intersection Observer for scroll animations (only affects elements in active view)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach((elem) => {
+                observer.observe(elem);
+            });
+        });
+
+    </script>
+</body>
+</html>
