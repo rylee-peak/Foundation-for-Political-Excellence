@@ -13,8 +13,8 @@ self.addEventListener('activate', (event) => {
 // Replace these with the actual domains pointing to your OptiPlex server.
 // E.g., 'https://api.yourdomain.com' and 'https://auth.yourdomain.com'
 // =========================================================================
-const OPTIPLEX_BACKEND_URL = 'https://api.yourdomain.com'; 
-const OPTIPLEX_AUTHENTIK_URL = 'https://auth.yourdomain.com';
+const OPTIPLEX_BACKEND_URL = 'https://api.yourdomain.com'; // Update this when your API domain is ready
+const OPTIPLEX_AUTHENTIK_URL = 'https://auth.rpeak.org';
 
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
