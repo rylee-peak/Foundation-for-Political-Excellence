@@ -660,6 +660,13 @@
             swRegistration: null
         };
 
+        // --- AUTHENTIK CONFIGURATION ---
+        const AUTHENTIK_CONFIG = {
+            clientId: 'ZoORlUSRigYBsiT1PWq1HoNXnA6i0M7HoJui92pX',
+            authorizeUrl: 'https://auth.rpeak.org/application/o/authorize/',
+            logoutUrl: 'https://auth.rpeak.org/application/o/foundation-for-political-excellence/end-session/'
+        };
+
         // --- SERVICE WORKER LOGIC ---
         async function registerSW() {
             if ('serviceWorker' in navigator) {
@@ -760,14 +767,40 @@
 
         function handleLogout() {
             appState.currentUser = null;
+            renderNav();
             navigate('public');
+            
+            // Redirect to Authentik to destroy the actual SSO session
+            const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+            window.location.href = `${AUTHENTIK_CONFIG.logoutUrl}?post_logout_redirect_uri=${redirectUri}`;
         }
 
         function openAuthentikFlow() {
-            // Directs the browser to the actual Authentik Flow URL using your domain
-            const authentikUrl = 'https://auth.rpeak.org'; 
-            const clientId = 'ZoORlUSRigYBsiT1PWq1HoNXnA6i0M7HoJui92pX';
-            window.open(`${authentikUrl}/application/o/${clientId}/`, '_blank');
+            const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+            
+            // We use response_type=token (Implicit Flow) so Authentik passes the token back directly to GitHub Pages
+            const authUrl = `${AUTHENTIK_CONFIG.authorizeUrl}?client_id=${AUTHENTIK_CONFIG.clientId}&response_type=token&redirect_uri=${redirectUri}&scope=openid%20profile%20email`;
+            
+            window.location.href = authUrl;
+        }
+
+        // --- CHECK FOR LOGIN REDIRECT ---
+        function checkAuthentikCallback() {
+            // When Authentik redirects back, it puts the token in the URL hash like: #access_token=123xyz...
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token')) {
+                console.log('✅ Authentik Login Successful!');
+                
+                // For now, we simulate a successful student login upon return
+                // (In a full app, you would decode the JWT token to get their actual name/role)
+                appState.currentUser = { name: 'Authenticated User', role: 'student' };
+                
+                // Clear the hash from the URL so it looks clean
+                history.replaceState(null, null, ' ');
+                
+                // Take them to the portal
+                navigate('portal');
+            }
         }
 
         // --- MODAL UTILS ---
@@ -799,6 +832,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             registerSW();
             renderNav();
+            checkAuthentikCallback(); // Check if we just came back from Authentik
             
             // Intersection Observer for scroll animations (only affects elements in active view)
             const observer = new IntersectionObserver((entries) => {
