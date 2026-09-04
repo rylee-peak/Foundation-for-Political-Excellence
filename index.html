@@ -778,28 +778,36 @@
         function openAuthentikFlow() {
             const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
             
-            // We use response_type=token (Implicit Flow) so Authentik passes the token back directly to GitHub Pages
-            const authUrl = `${AUTHENTIK_CONFIG.authorizeUrl}?client_id=${AUTHENTIK_CONFIG.clientId}&response_type=token&redirect_uri=${redirectUri}&scope=openid%20profile%20email`;
+            // Changed response_type to 'code' to match Authentik's default settings
+            const authUrl = `${AUTHENTIK_CONFIG.authorizeUrl}?client_id=${AUTHENTIK_CONFIG.clientId}&response_type=code&redirect_uri=${redirectUri}&scope=openid%20profile%20email`;
             
             window.location.href = authUrl;
         }
 
         // --- CHECK FOR LOGIN REDIRECT ---
         function checkAuthentikCallback() {
-            // When Authentik redirects back, it puts the token in the URL hash like: #access_token=123xyz...
             const hash = window.location.hash;
-            if (hash && hash.includes('access_token')) {
+            const search = window.location.search;
+            
+            console.log("[Auth Debug] Hash:", hash, "Search:", search);
+
+            // Check if Authentik sent back a token in the hash, OR a code in the search query
+            if (hash.includes('access_token') || hash.includes('id_token') || search.includes('code')) {
                 console.log('✅ Authentik Login Successful!');
                 
-                // For now, we simulate a successful student login upon return
-                // (In a full app, you would decode the JWT token to get their actual name/role)
-                appState.currentUser = { name: 'Authenticated User', role: 'student' };
+                if (search.includes('code')) {
+                    console.warn("⚠️ Authentik returned a 'code' instead of a 'token'. (Implicit flow might be unchecked in Authentik). Logging in anyway for frontend demo.");
+                }
                 
-                // Clear the hash from the URL so it looks clean
-                history.replaceState(null, null, ' ');
+                appState.currentUser = { name: 'FPE Member', role: 'student' };
+                
+                // Clear the hash and query from the URL so it looks clean
+                history.replaceState(null, null, window.location.pathname);
                 
                 // Take them to the portal
                 navigate('portal');
+            } else if (hash.includes('error') || search.includes('error')) {
+                console.error("❌ Authentik Error:", hash || search);
             }
         }
 
